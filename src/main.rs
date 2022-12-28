@@ -398,7 +398,11 @@ fn main() {
             ui.label_fixed_width(&notification, x, REGULAR_PAIR);
             ui.label_fixed_width("", x, REGULAR_PAIR);
 
-            ui.begin_layout(LayoutKind::Horz);
+            ui.begin_layout(if x/2 < y {
+                LayoutKind::Vert
+            } else {
+                LayoutKind::Horz
+            });
             {
                 ui.begin_layout(LayoutKind::Vert);
                 {
