@@ -249,7 +249,7 @@ fn write_wallpaper(
 
     // FIXME: would be removed once screen dimensions are used (see TODOs below)
     if img_width < 200 || img_height < 200 {
-        panic!("Image is too small");
+        eprintln!("Error: Image is too small");
     }
 
     // 1. divide the image into 2 vertical halves if width < 500 px
