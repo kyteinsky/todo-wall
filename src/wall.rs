@@ -247,6 +247,7 @@ fn write_wallpaper(
 
     let (img_width, img_height) = (img.width(), img.height());
 
+    // FIXME: would be removed once screen dimensions are used (see TODOs below)
     if img_width < 200 || img_height < 200 {
         panic!("Image is too small");
     }
@@ -395,3 +396,6 @@ fn wrap_string(text: String, bounding_box_width: usize, font: &Font, scale: &Sca
 // TODO: clean the directory of any old wallpapers
 // TODO: do not render the todo wallpaper if the todos remain the same
 // TODO: indent the lines that have been wrapped
+// TODO: use screen dimensions instead of image dimensions for:
+//       - font size
+//       - start and end of the image to use since the image is scaled and cropped accordingly by the DE
