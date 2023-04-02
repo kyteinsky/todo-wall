@@ -447,6 +447,11 @@ fn main() {
                                     editing = true;
                                     notification.push_str("What needs to be done?");
                                 }
+                                'e' => {
+                                    editing_cursor = todos[todo_curr].len();
+                                    editing = true;
+                                    notification.push_str("Edit the todo");
+                                }
                                 'd' => {
                                     notification.push_str(
                                         "Can't remove items from TODO. Mark it as DONE first.",
@@ -521,6 +526,11 @@ fn main() {
                                 'i' => {
                                     notification.push_str(
                                         "Can't insert new DONE items. Only TODO is allowed.",
+                                    );
+                                }
+                                'e' => {
+                                    notification.push_str(
+                                        "Can't edit DONE items. Only TODO is allowed.",
                                     );
                                 }
                                 'd' => {
