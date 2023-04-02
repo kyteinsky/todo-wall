@@ -342,11 +342,7 @@ fn main() {
 
     let file_path = match args.next() {
         Some(file_path) => file_path,
-        None => {
-            eprintln!("Usage: todo-rs <file-path>");
-            eprintln!("ERROR: file path is not provided");
-            process::exit(1);
-        }
+        None => "todos".to_string(),
     };
 
     let mut todos = Vec::<String>::new();
