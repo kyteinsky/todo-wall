@@ -31,7 +31,7 @@ enum WallType {
     Dark,
 }
 
-fn get_backup_loc() -> String {
+pub fn get_backup_loc() -> String {
     let home_dir = env::var("HOME").unwrap();
     format!("{}/.todo-wallpaper/", home_dir)
 }

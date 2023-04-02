@@ -5,8 +5,9 @@ use std::fs::File;
 use std::io::{self, BufRead, ErrorKind, Write};
 use std::ops::{Add, Mul};
 use std::process;
+use std::path::Path;
 
-use wall::set_wall;
+use wall::{set_wall, get_backup_loc};
 
 mod ctrlc;
 mod wall;
@@ -343,9 +344,11 @@ fn main() {
     let mut args = env::args();
     args.next().unwrap();
 
+    let backup_loc = get_backup_loc();
+    let backup_loc = Path::new(backup_loc.as_str());
     let file_path = match args.next() {
         Some(file_path) => file_path,
-        None => "todos".to_string(),
+        None => backup_loc.join("todos").to_str().unwrap().to_string(),
     };
 
     let mut todos = Vec::<String>::new();
