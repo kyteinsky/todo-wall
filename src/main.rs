@@ -6,7 +6,10 @@ use std::io::{self, BufRead, ErrorKind, Write};
 use std::ops::{Add, Mul};
 use std::process;
 
+use wall::set_wall;
+
 mod ctrlc;
+mod wall;
 
 const REGULAR_PAIR: i16 = 0;
 const HIGHLIGHT_PAIR: i16 = 1;
@@ -563,5 +566,6 @@ fn main() {
     endwin();
 
     save_state(&todos, &dones, &file_path);
-    println!("Saved state to {}", file_path);
+
+    set_wall(&todos, &dones);
 }

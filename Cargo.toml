@@ -8,3 +8,6 @@ edition = "2018"
 [dependencies]
 ncurses = "5.101.0"
 libc = "0.2.97"
+image = "0.24.6"
+imageproc = "0.23.0"
+rusttype = "0.9.3"
