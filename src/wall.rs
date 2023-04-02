@@ -277,10 +277,9 @@ fn write_wallpaper(
     };
 
     // 3. wrap the text according to the space available
-    // NOTE: font width calculation is slightly off, so 0.02 is a hack instead of 0.04
+    // NOTE: font width calculation is slightly off, not sure if this is a font issue or a rusttype issue
     let wrapped_string = wrap_string(
         text,
-        // (img_width - start_x - (0.02 * img_width as f32) as u32) as usize,
         (img_width - start_x as u32) as usize,
         &font,
         &font_size,
