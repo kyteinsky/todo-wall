@@ -1,5 +1,3 @@
-use core::panic;
-
 use std::env;
 use std::ffi::OsStr;
 use std::fs::{copy, create_dir};
