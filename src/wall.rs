@@ -186,7 +186,6 @@ pub fn set_wall(todos: &[String], dones: &[String]) {
 
     if todos.len() > 0 {
         to_print.push("TODOS:".to_string());
-        to_print.push("".to_string());
         for (i, todo) in todos.iter().enumerate() {
             to_print.push(format!("{}. {}", i + 1, todo));
         }
@@ -194,7 +193,6 @@ pub fn set_wall(todos: &[String], dones: &[String]) {
     if dones.len() > 0 {
         to_print.push("".to_string());
         to_print.push("DONES:".to_string());
-        to_print.push("".to_string());
         for (i, done) in dones.iter().enumerate() {
             to_print.push(format!("{}. {}", i + 1, done));
         }
@@ -258,7 +256,7 @@ fn write_wallpaper(
         } else {
             2 * img_width / 3
         }),
-        0u32,
+        (0.1 * img_height as f32) as u32,
     );
 
     // 2. scale the font according to the image dimensions (with min and max - clamp)
@@ -301,15 +299,25 @@ fn write_wallpaper(
         .blur(15f32);
     img.copy_from(&blurred_img, start_x as u32, 0)?;
 
-    // 5. add text to the image leaving a margin of 2% of the image width and height
-    wrapped_string.iter().enumerate().for_each(|(i, line)| {
+    // adjust start_x to include the margin
+    let start_x = start_x + (0.02 * img_width as f32) as u32;
+
+    // y position of the text
+    let mut i: f32 = 0.0;
+
+    // 5. add text to the image
+    wrapped_string.iter().for_each(|line| {
+        if line.len() > 0 && line[1..].starts_with(". ") {
+            i += 1.5;
+        } else {
+            i += 1.0;
+        }
+
         drawing::draw_text_mut(
             &mut img,
             text_color,
-            start_x as i32 + (0.02 * img_width as f32) as i32,
-            start_y as i32
-                + ((1.15 * i as f32 * font_size.y) as i32)
-                + (0.1 * img_height as f32) as i32,
+            start_x as i32,
+            start_y as i32 + ((1.15 * i as f32 * font_size.y) as i32),
             font_size,
             &font,
             line,
@@ -396,3 +404,4 @@ fn wrap_string(text: String, bounding_box_width: usize, font: &Font, scale: &Sca
 // TODO: use screen dimensions instead of image dimensions for:
 //       - font size
 //       - start and end of the image to use since the image is scaled and cropped accordingly by the DE
+// TODO: name dark and light wallpapers differently
